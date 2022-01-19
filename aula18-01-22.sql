@@ -4,7 +4,7 @@ select tb_cliente.nome, tb_pedido_pizza.id_pedido, tb_pizza.nome
 from tb_cliente
 left join tb_pedido on tb_pedido.id_cliente = tb_cliente.id_cliente
 left join tb_pedido_pizza on tb_pedido_pizza.id_pedido = tb_pedido.id_pedido
-left join tb_pizza on tb_pizza.id_pizza = tb_pedido_pizza.id_pizza
+left join tb_pizza on tb_pedido_pizza.id_pizza = tb_pizza.id_pizza
 order by tb_pedido_pizza.id_pedido
 
 -- Selecionar o nome de todos os clientes que dizeram pedidos
@@ -30,6 +30,12 @@ where lower (nome) like '%zero%'
 group by tb_pizza.nome;
 
 
-
-
+-- Selecionar nome de todas as pizzas, associar com os pedidos, os nomes dos clientes que escolheram
+-- e verificar quais pizzas nunca foram pedidas
+select tb_cliente.nome, tb_pedido_pizza.id_pedido, tb_pizza.nome 
+from tb_cliente
+inner join tb_pedido on tb_pedido.id_cliente = tb_cliente.id_cliente
+left join tb_pedido_pizza on tb_pedido_pizza.id_pedido = tb_pedido.id_pedido
+right join tb_pizza on tb_pedido_pizza.id_pizza = tb_pizza.id_pizza
+order by tb_pedido_pizza.id_pedido desc;
 
